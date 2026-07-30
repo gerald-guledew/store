@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: store
+stripe:
+  apiUrl: https://api.stripe2.com
+  enabled: true
+  timeout: 2000
+  supported-currencies: USD, EUR, NZD, GBP, CAD
