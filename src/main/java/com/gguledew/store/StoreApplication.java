@@ -1,13 +1,19 @@
 package com.gguledew.store;
 
+import com.gguledew.store.service.OrderService;
+import com.gguledew.store.service.PayPalPaymentService;
+import com.gguledew.store.service.StripePaymentService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class StoreApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(StoreApplication.class, args);
-	}
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(StoreApplication.class, args);
+        var orderService = context.getBean(OrderService.class);
+        orderService.placeOrder();
+    }
 
 }
