@@ -6,3 +6,4 @@ stripe:
   enabled: true
   timeout: 2000
   supported-currencies: USD, EUR, NZD, GBP, CAD
+payment-gateway: stripe

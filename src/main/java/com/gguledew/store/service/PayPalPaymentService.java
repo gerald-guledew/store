@@ -3,7 +3,7 @@ package com.gguledew.store.service;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-@Service("paypal")
+//@Service("paypal")
 public class PayPalPaymentService implements PaymentService{
 
     @Override
