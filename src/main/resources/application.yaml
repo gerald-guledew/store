@@ -7,3 +7,6 @@ stripe:
   timeout: 2000
   supported-currencies: USD, EUR, NZD, GBP, CAD
 payment-gateway: stripe
+mail:
+  host: 192.168.12.18
+  port: 8082
