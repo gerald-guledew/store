@@ -2,8 +2,8 @@ create table profiles
 (
     id             bigint                 not null
         primary key,
-    bio            varchar(255)           null,
-    phone_number   varchar(12)            null,
+    bio            text           null,
+    phone_number   varchar(15)            null,
     data_of_birth  date                   null,
     loyalty_points int unsigned default 0 null,
     constraint profiles_users_id_fk
