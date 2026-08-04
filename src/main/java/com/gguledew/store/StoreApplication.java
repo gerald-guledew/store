@@ -1,8 +1,5 @@
 package com.gguledew.store;
 
-import com.gguledew.store.domain.User;
-import com.gguledew.store.service.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
