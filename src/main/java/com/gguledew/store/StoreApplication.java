@@ -1,33 +1,21 @@
 package com.gguledew.store;
 
+import com.gguledew.store.domain.Address;
 import com.gguledew.store.domain.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class StoreApplication {
 
     public static void main(String[] args) {
 //        ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
-//        var orderService = context.getBean(OrderService.class);
-//        orderService.placeOrder();
-//        context.close();
-
-        User user = new User();
-        user.setName("Gerald");
-        user.setEmail("gerald.g@gmail.com");
-        user.setPassword("password");
-//        ApplicationContext context = SpringApplication.run(StoreApplication.class, args);
-////        String user = System.getenv("DB_USER");
-////        String password = System.getenv("DB_PASSWORD");
-////
-////        System.out.println("Environment Variable DB_USER: "+ user);
-////        System.out.println("Environment Variable DB_PASSWORD: "+ password);
-////        System.out.println("Environment Variable db_user: "+ context.getEnvironment().getProperty("db_user"));
-//////        UserService userService = context.getBean(UserService.class);
-//////        userService.registerUser(new User(1L, "gerald.g@gmail.com","1234","Gerald"));
-//////        userService.registerUser(new User(1L, "gerald.g@gmail.com","1234","Gerald"));
+        User user = User.builder().name("Gerald").password("pass").email("g.g@g.com").build();
+        Address address = Address.builder().street("streetpart").city("citypart").zip("123").state("hired").build();
+        user.addAddresses(address);
+        System.out.println(user);
 
     }
 
