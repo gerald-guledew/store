@@ -4,8 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
 @Builder
 @Setter
@@ -37,4 +38,17 @@ public class User {
         addresses.add(address);
         address.setUser(this);
     }
+
+    public void removeAddress (Address address) {
+        addresses.remove(address);
+        address.setUser(null);
+    }
+
+    @ManyToMany
+    @JoinTable (
+            name = "user_tags",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
 }
