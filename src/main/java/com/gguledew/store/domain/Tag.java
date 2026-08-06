@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name="tags")
 public class Tag {
@@ -25,6 +27,7 @@ public class Tag {
     private String name;
 
     @ManyToMany (mappedBy = "tags")
+    @ToString.Exclude
     private Set<User> users = new HashSet<>();
 
     public Tag(String name) {

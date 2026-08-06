@@ -1,8 +1,7 @@
 package com.gguledew.store.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -10,6 +9,10 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "profiles")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +30,10 @@ public class Profile {
 
     @Column(name = "loyalty_points")
     private Long loyaltyPoints;
+
+    @OneToOne
+    @JoinColumn(name = "id")
+    @MapsId
+    @ToString.Exclude
+    private User user;
 }
