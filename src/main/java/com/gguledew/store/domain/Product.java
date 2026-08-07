@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -19,8 +21,8 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-//    @Column (name = "description")
-//    private String description;
+    @Column (name = "description", columnDefinition = "TEXT", nullable = false)
+    private String description;
 
     @Column(name = "price")
     private BigDecimal price;
@@ -29,5 +31,6 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-
+    @ManyToMany(mappedBy = "products")
+    private Set<User> users = new HashSet<>();
 }

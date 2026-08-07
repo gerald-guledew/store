@@ -33,6 +33,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<Address> addresses = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "user_tags",
@@ -45,6 +46,14 @@ public class User {
     @OneToOne (mappedBy = "user")
     private Profile profile;
 
+    @ManyToMany
+    @JoinTable(
+            name = "wishlist",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @Builder.Default
+    private Set<Product> products = new HashSet<>();
+
     public void addAddresses(Address address) {
         addresses.add(address);
         address.setUser(this);
@@ -55,15 +64,6 @@ public class User {
         address.setUser(null);
     }
 
-//    public void addTag(Tag tag) {
-//        this.tags.add(tag);
-//        tag.getUsers().add(this);
-//    }
-//
-//    public void removeTag(Tag tag) {
-//        this.tags.remove(tag);
-//        tag.getUsers().remove(this);
-//    }
     public void addTag(String tagName) {
         Tag tag = new Tag(tagName);
         tags.add(tag);
