@@ -32,7 +32,7 @@ public class StoreApplication {
 //        System.out.println(user);
         Category category = Category.builder().name("Category1").build();
         Product product = Product.builder().name("Product1").price(BigDecimal.valueOf(1234.01)).build();
-        category.addProduct(product);
+        category.getProducts().add(product);
         System.out.println("Product: " + product);
         System.out.println("Category: " + category);
 

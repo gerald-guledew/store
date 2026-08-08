@@ -54,6 +54,16 @@ public class User {
     @Builder.Default
     private Set<Product> products = new HashSet<>();
 
+    public void addProduct(Product product){
+        products.add(product);
+        product.getUsers().add(this);
+    }
+
+    public void removeProduct(Product product) {
+        products.remove(product);
+        product.getUsers().remove(this);
+    }
+
     public void addAddresses(Address address) {
         addresses.add(address);
         address.setUser(this);
