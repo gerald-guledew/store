@@ -5,6 +5,8 @@ spring:
     url: jdbc:mysql://localhost:3306/store?createDatabaseIfNotExist=true
     username: ${DB_USER}
     password: ${DB_PASSWORD}
+  jpa:
+    show-sql: true
 stripe:
   apiUrl: https://api.stripe2.com
   enabled: true
@@ -13,4 +15,8 @@ stripe:
 payment-gateway: stripe
 mail:
   host: 192.168.12.18
+  port: 8082
+nuser:
+  uname: gerald
+server:
   port: 8082

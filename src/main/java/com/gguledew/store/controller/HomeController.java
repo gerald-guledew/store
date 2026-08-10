@@ -10,9 +10,14 @@ public class HomeController {
     @Value("${spring.application.name}")
     private String appName;
 
+    @Value("nuser.uname")
+    private String gname;
+
+
     @RequestMapping("/")
     public String index () {
-        System.out.println("appName value:"+appName);
+        System.out.println("appName value: "+appName);
+        System.out.println("HomeConroller gname value: "+gname);
         return "index.html";
     }
 }
