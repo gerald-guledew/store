@@ -16,6 +16,9 @@ public class StoreApplication {
     public static void main(String[] args) throws ParseException {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
         var userRepository = context.getBean(UserRepository.class);
+        userRepository.save(User.builder().name("Gerald1").email("g1.g1@g1.com").password("pass1").build());
+        userRepository.save(User.builder().name("Gerald2").email("g2.g2@g2.com").password("pass2").build());
+        userRepository.save(User.builder().name("Gerald3").email("g3.g3@g3.com").password("pass3").build());
         var user = userRepository.findById(1L).orElseThrow();
         Profile profile = Profile.builder().bio("1st bio").phoneNumber("1st pn").loyaltyPoints(1L).user(user).build();
         var profileRepo = context.getBean(ProfileRepository.class);
