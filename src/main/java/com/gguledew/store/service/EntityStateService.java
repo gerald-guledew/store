@@ -1,6 +1,7 @@
 package com.gguledew.store.service;
 
 import com.gguledew.store.domain.User;
+import com.gguledew.store.repository.ProfileRepository;
 import com.gguledew.store.repository.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -13,6 +14,7 @@ public class EntityStateService {
 
     private final UserRepository userRepository;
     private final EntityManager entityManager;
+    private final ProfileRepository profileRepository;
 
     @Transactional
     public void showEntityStates () {
@@ -33,8 +35,12 @@ public class EntityStateService {
         }
     }
 
+    @Transactional
     public void showRelatedEntities () {
-        var user = userRepository.findById(3L).orElseThrow();
-        System.out.println("User: "+user.getEmail());
+//        var user = userRepository.findById(3L).orElseThrow();
+//        System.out.println("User: "+user.getEmail());
+        var profile = profileRepository.findById(1L).orElseThrow();
+        System.out.println("@EntityStateService: profile.bio: "+profile.getBio());
+        System.out.println("@EntityStateService: profile.user.email: "+profile.getUser().getEmail());
     }
 }

@@ -1,9 +1,9 @@
 package com.gguledew.store;
 
 import com.gguledew.store.domain.*;
-import com.gguledew.store.repository.ProfileRepository;
+import com.gguledew.store.repository.AddressRepository;
 import com.gguledew.store.repository.UserRepository;
-import com.gguledew.store.service.EntityStateService;
+import com.gguledew.store.service.AddressService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -16,13 +16,36 @@ public class StoreApplication {
     public static void main(String[] args) throws ParseException {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
         var userRepository = context.getBean(UserRepository.class);
-        userRepository.save(User.builder().name("Gerald1").email("g1.g1@g1.com").password("pass1").build());
-        userRepository.save(User.builder().name("Gerald2").email("g2.g2@g2.com").password("pass2").build());
-        userRepository.save(User.builder().name("Gerald3").email("g3.g3@g3.com").password("pass3").build());
+        var addressRepository = context.getBean(AddressRepository.class);
+        var addressService = context.getBean(AddressService.class);
+
         var user = userRepository.findById(1L).orElseThrow();
-        Profile profile = Profile.builder().bio("1st bio").phoneNumber("1st pn").loyaltyPoints(1L).user(user).build();
-        var profileRepo = context.getBean(ProfileRepository.class);
-        profileRepo.save(profile);
+        var address = Address.builder().street("Street 1").city("City 1").zip("1051").state("State 1").user(user).build();
+        addressRepository.save(address);
+        addressService.extractAddress(1L);
+
+
+
+        //===
+        //130826 12:28
+//        var entityStateService = context.getBean(EntityStateService.class);
+//        entityStateService.showRelatedEntities();
+//        var userRepository = context.getBean(UserRepository.class);
+//        userRepository.save(User.builder().name("Gerald1").email("g1.g1@g1.com").password("pass1").build());
+//        userRepository.save(User.builder().name("Gerald2").email("g2.g2@g2.com").password("pass2").build());
+//        userRepository.save(User.builder().name("Gerald3").email("g3.g3@g3.com").password("pass3").build());
+//        var user = userRepository.findById(1L).orElseThrow();
+//        Profile profile = Profile.builder().id(user.getId()).bio("1st bio").phoneNumber("1st pn").loyaltyPoints(1L).user(user).build();
+//        var profileRepo = context.getBean(ProfileRepository.class);
+//        var profile = profileRepo.findById(1L).get();
+
+//        if (profileRepo.findById(profile.getId()).isEmpty()) {
+//            profileRepo.save(profile);
+//        } else {
+//            System.out.println("Profile with ID: "+profile.getId()+" already exist.");
+//        }
+//        System.out.println(profile.getBio());
+//        System.out.println("Email from the User: "+profile.getUser().getEmail());
 //        var profileService = context.getBean(ProfileService.class);
 //        profileService.showRelatedEntities();
         //===
