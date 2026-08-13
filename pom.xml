@@ -84,8 +84,6 @@
                 <version>13.1.0</version>
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/store?createDatabaseIfNotExist=true</url>
-                    
-                    
                     <cleanDisabled>false</cleanDisabled>
                 </configuration>
             </plugin>
