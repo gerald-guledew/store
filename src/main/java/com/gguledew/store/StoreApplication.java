@@ -2,30 +2,55 @@ package com.gguledew.store;
 
 import com.gguledew.store.domain.*;
 import com.gguledew.store.repository.AddressRepository;
+import com.gguledew.store.repository.ProfileRepository;
 import com.gguledew.store.repository.UserRepository;
 import com.gguledew.store.service.AddressService;
+import com.gguledew.store.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class StoreApplication {
 
     public static void main(String[] args) throws ParseException {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
-        var userRepository = context.getBean(UserRepository.class);
-        var addressRepository = context.getBean(AddressRepository.class);
-        var addressService = context.getBean(AddressService.class);
 
-        var user = userRepository.findById(1L).orElseThrow();
-        var address = Address.builder().street("Street 1").city("City 1").zip("1051").state("State 1").user(user).build();
-        addressRepository.save(address);
-        addressService.extractAddress(1L);
+        //Implementation of Delete Related Entities (1708261308)
+        var userService = context.getBean(UserService.class);
+        //userService.deleteRelatedRecord(1L);
+        //userService.populateUsers();
+        userService.deleteAddressOfUser(2L);
 
 
+        //== Implementation of Persist Related Entities (User<->Address) (1408261122)
+//        var userRepository = context.getBean(UserRepository.class);
+//        var user = User.builder().name("name2").email("email2").password("password2").build();
+//        var address = Address.builder().street("street2").city("city2").zip("zip2").state("state2").build();
+//        user.addAddresses(address);
+//        userRepository.save(user);
 
+        //=== Implementation of Address Repository
+//        var userRepository = context.getBean(UserRepository.class);
+//        var addressRepository = context.getBean(AddressRepository.class);
+//        var addressService = context.getBean(AddressService.class);
+//        var profileRepository = context.getBean(ProfileRepository.class);
+//
+//        var user = User.builder().name("name1").email("email1").password("password1").build();
+//        userRepository.save(user);
+//
+//        var profile = Profile.builder().bio("bio1").phoneNumber("phonenumber1").dateOfBirth(java.sql.Date.valueOf("1918-05-20")).loyaltyPoints(1L).user(user).build();
+//        profileRepository.save(profile);
+//
+//
+//        var address = Address.builder().street("Street 1").city("City 1").zip("1051").state("State 1").build();
+//        user.addAddresses(address);
+//        addressRepository.save(address);
+//        addressService.extractAddress(1L);
+//
         //===
         //130826 12:28
 //        var entityStateService = context.getBean(EntityStateService.class);
