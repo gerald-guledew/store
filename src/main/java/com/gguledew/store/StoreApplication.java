@@ -5,6 +5,7 @@ import com.gguledew.store.repository.AddressRepository;
 import com.gguledew.store.repository.ProfileRepository;
 import com.gguledew.store.repository.UserRepository;
 import com.gguledew.store.service.AddressService;
+import com.gguledew.store.service.CatalogService;
 import com.gguledew.store.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,11 +20,20 @@ public class StoreApplication {
     public static void main(String[] args) throws ParseException {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
 
+        //===
+        //Adding new Products and Category
+//        var catalogService = context.getBean(CatalogService.class);
+//        catalogService.addProduct(); //Create 4 new products and 2 new categories
+
+        var catalogService = context.getBean(CatalogService.class);
+        catalogService.addProductToAExistingCategory();
+
+        //===
         //Implementation of Delete Related Entities (1708261308)
-        var userService = context.getBean(UserService.class);
-        //userService.deleteRelatedRecord(1L);
-        //userService.populateUsers();
-        userService.deleteAddressOfUser(2L);
+//        var userService = context.getBean(UserService.class);
+//        //userService.deleteRelatedRecord(1L);
+//        //userService.populateUsers();
+//        userService.deleteAddressOfUser(2L);
 
 
         //== Implementation of Persist Related Entities (User<->Address) (1408261122)
