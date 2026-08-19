@@ -34,10 +34,15 @@ public class CatalogService {
         productRepository.save(product);
     }
 
+    @Transactional
     public void addProductToAExistingCategory() {
         var category = categoryRepository.findById((byte)1).get();
         var product = Product.builder().name("productname5").description("pdescription5").price(BigDecimal.valueOf(5)).build();
         product.addCategory(category);
         productRepository.save(product);
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
     }
 }

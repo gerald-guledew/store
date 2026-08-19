@@ -21,12 +21,17 @@ public class StoreApplication {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
 
         //===
+        //Adding all products to user's wishlist
+        var userService = context.getBean(UserService.class);
+        userService.setAllProductsToUserWishlist();
+
+        //===
         //Adding new Products and Category
 //        var catalogService = context.getBean(CatalogService.class);
 //        catalogService.addProduct(); //Create 4 new products and 2 new categories
 
-        var catalogService = context.getBean(CatalogService.class);
-        catalogService.addProductToAExistingCategory();
+//        var catalogService = context.getBean(CatalogService.class);
+//        catalogService.addProductToAExistingCategory();
 
         //===
         //Implementation of Delete Related Entities (1708261308)

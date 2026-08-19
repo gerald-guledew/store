@@ -3,6 +3,7 @@ package com.gguledew.store.service;
 import com.gguledew.store.domain.Address;
 import com.gguledew.store.domain.User;
 import com.gguledew.store.repository.AddressRepository;
+import com.gguledew.store.repository.ProductRepository;
 import com.gguledew.store.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final NotificationService notificationService;
     private final AddressRepository addressRepository;
+    private final ProductRepository productRepository;
 
-    public UserService(UserRepository userRepository, NotificationService notificationService, AddressRepository addressRepository) {
+    public UserService(UserRepository userRepository, NotificationService notificationService, AddressRepository addressRepository, ProductRepository productRepository) {
         this.userRepository = userRepository;
         this.notificationService = notificationService;
         this.addressRepository = addressRepository;
+        this.productRepository = productRepository;
     }
 
     public void registerUser (User user) {
@@ -64,5 +67,12 @@ public class UserService {
         address = Address.builder().street("street6").city("city6").zip("zip6").state("state6").build();
         user.addAddresses(address);
         addressRepository.save(address);
+    }
+
+    @Transactional
+    public void setAllProductsToUserWishlist() {
+        var user = userRepository.findById(2L).orElseThrow(); //I've deleted User 1, so use 2 instead.
+        productRepository.findAll().forEach(user::addProduct);
+        userRepository.save(user);
     }
 }
