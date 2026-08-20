@@ -21,9 +21,14 @@ public class StoreApplication {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
 
         //===
+        //Deleting a product
+        var catalogService = context.getBean(CatalogService.class);
+        catalogService.deleteProduct(2L);
+
+        //===
         //Adding all products to user's wishlist
-        var userService = context.getBean(UserService.class);
-        userService.setAllProductsToUserWishlist();
+//        var userService = context.getBean(UserService.class);
+//        userService.setAllProductsToUserWishlist();
 
         //===
         //Adding new Products and Category

@@ -4,6 +4,7 @@ import com.gguledew.store.domain.Category;
 import com.gguledew.store.domain.Product;
 import com.gguledew.store.repository.CategoryRepository;
 import com.gguledew.store.repository.ProductRepository;
+import com.gguledew.store.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 public class CatalogService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public void addProduct() {
@@ -42,7 +44,11 @@ public class CatalogService {
         productRepository.save(product);
     }
 
+    @Transactional
     public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+        var product = productRepository.findById(id).orElseThrow();
+        var user = userRepository.findUserByProductsId(id);
+        user.getProducts().remove(product);
+        productRepository.delete(product);
     }
 }
