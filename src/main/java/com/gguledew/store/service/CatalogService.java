@@ -48,7 +48,8 @@ public class CatalogService {
     public void deleteProduct(Long id) {
         var product = productRepository.findById(id).orElseThrow();
         var user = userRepository.findUserByProductsId(id);
-        user.getProducts().remove(product);
+
+        user.forEach(u -> u.removeProduct(product));
         productRepository.delete(product);
     }
 }
