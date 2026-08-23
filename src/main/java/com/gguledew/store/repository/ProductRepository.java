@@ -1,6 +1,7 @@
 package com.gguledew.store.repository;
 
 import com.gguledew.store.domain.Product;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,5 +15,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findByPriceBetweenOrderByNameAsc(BigDecimal minPrice, BigDecimal maxPrice);
     @Query(value = "select * from products p where p.price between :min and :max order by p.name", nativeQuery = true)
     List<Product> findByProduct(@Param("min") BigDecimal min, @Param("max") BigDecimal max);
-
+    @Modifying
+    @Query("update Product p Set p.price = :newPrice where p.category.id = :categoryId")
+    void updatePriceByCategory(@Param("newPrice") BigDecimal newPrice, @Param("categoryId") Byte categoryId);
 }

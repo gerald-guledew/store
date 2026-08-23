@@ -2,6 +2,7 @@ package com.gguledew.store;
 
 import com.gguledew.store.domain.*;
 import com.gguledew.store.repository.AddressRepository;
+import com.gguledew.store.repository.ProductRepository;
 import com.gguledew.store.repository.ProfileRepository;
 import com.gguledew.store.repository.UserRepository;
 import com.gguledew.store.service.AddressService;
@@ -11,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -19,11 +21,15 @@ public class StoreApplication {
 
     public static void main(String[] args) throws ParseException {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
+        //===
+        // Updating Product Price based on Category ID
+        var productRepository = context.getBean(ProductRepository.class);
+        productRepository.updatePriceByCategory(BigDecimal.valueOf(8),(byte) 4);
 
         //===
-        //Deleting a product
-        var catalogService = context.getBean(CatalogService.class);
-        catalogService.deleteProduct(2L);
+//        //Deleting a product
+//        var catalogService = context.getBean(CatalogService.class);
+//        catalogService.deleteProduct(2L);
 
         //===
         //Adding all products to user's wishlist
