@@ -22,10 +22,19 @@ public class StoreApplication {
     public static void main(String[] args) throws ParseException {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
         //===
-        // Updating Product Price based on Category ID
-        var productRepository = context.getBean(ProductRepository.class);
-        productRepository.updatePriceByCategory(BigDecimal.valueOf(8),(byte) 4);
+        // Fetching list of product summary by category
+        var catalogService = context.getBean(CatalogService.class);
+        catalogService.fetchProductSummary();
 
+        //===
+        // Fetching list of products by category
+//        var catalogService = context.getBean(CatalogService.class);
+//        catalogService.fetchProducts();
+
+        //===
+        // Updating Product Price based on Category ID
+//        var catalogService = context.getBean(CatalogService.class);
+//        catalogService.updateProductPrices();
         //===
 //        //Deleting a product
 //        var catalogService = context.getBean(CatalogService.class);

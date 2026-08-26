@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 @Table(name = "products")
 public class Product {
     @Id
@@ -31,9 +32,11 @@ public class Product {
 
     @ManyToOne (cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
+    @ToString.Exclude
     private Category category;
 
     @ManyToMany(mappedBy = "products")
+    @ToString.Exclude
     private Set<User> users = new HashSet<>();
 
     public void addCategory(Category category) {

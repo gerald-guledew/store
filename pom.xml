@@ -85,6 +85,8 @@
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/store?createDatabaseIfNotExist=true</url>
                     <cleanDisabled>false</cleanDisabled>
+                    <user>${env.SYSVAR_DB_USER}</user>
+                    <password>${env.SYSVAR_DB_PASSWORD}</password>
                 </configuration>
             </plugin>
 

@@ -28,4 +28,7 @@ public class Category {
     private Set<Product> products = new HashSet<>();
 
 
+    public Category(byte id) {
+        this.id = id;
+    }
 }

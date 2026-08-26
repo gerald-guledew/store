@@ -5,6 +5,7 @@ import com.gguledew.store.domain.Product;
 import com.gguledew.store.repository.CategoryRepository;
 import com.gguledew.store.repository.ProductRepository;
 import com.gguledew.store.repository.UserRepository;
+import jakarta.persistence.NamedStoredProcedureQueries;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,20 @@ public class CatalogService {
 
         user.forEach(u -> u.removeProduct(product));
         productRepository.delete(product);
+    }
+
+    @Transactional
+    public void updateProductPrices() {
+        productRepository.updatePriceByCategory(BigDecimal.valueOf(10),(byte)4); //Change the price from 1 to 10.
+    }
+
+    public void fetchProducts() {
+        var products = productRepository.findByCategory(new Category((byte)1));
+        products.forEach(System.out::println);
+    }
+
+    public void fetchProductSummary() {
+        var productSummary = productRepository.findProductSummaryByCategory(new Category((byte) 2));
+        productSummary.forEach(IO::println);
     }
 }
