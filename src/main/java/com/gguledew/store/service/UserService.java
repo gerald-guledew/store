@@ -75,4 +75,10 @@ public class UserService {
         productRepository.findAll().forEach(user::addProduct);
         userRepository.save(user);
     }
+
+    @Transactional
+    public void fetchUserAndTagsByEmail(String email) {
+        var user = userRepository.findUserAndTagByEmail(email).orElseThrow();
+        System.out.println(user.getId());
+    }
 }

@@ -1,6 +1,6 @@
 package com.gguledew.store.dtos;
 
 public interface ProductSummary {
-    String getId();
+    Long getId();
     String getName();
 }

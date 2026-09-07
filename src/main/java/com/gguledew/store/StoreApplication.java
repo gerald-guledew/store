@@ -22,9 +22,14 @@ public class StoreApplication {
     public static void main(String[] args) throws ParseException {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
         //===
+        //Fetching user and tag by email
+        var userService = context.getBean(UserService.class);
+        userService.fetchUserAndTagsByEmail("email4");
+
+        //===
         // Fetching list of product summary by category
-        var catalogService = context.getBean(CatalogService.class);
-        catalogService.fetchProductSummary();
+//        var catalogService = context.getBean(CatalogService.class);
+//        catalogService.fetchProductSummary();
 
         //===
         // Fetching list of products by category

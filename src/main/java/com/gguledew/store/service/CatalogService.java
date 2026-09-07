@@ -66,6 +66,6 @@ public class CatalogService {
 
     public void fetchProductSummary() {
         var productSummary = productRepository.findProductSummaryByCategory(new Category((byte) 2));
-        productSummary.forEach(IO::println);
+        productSummary.forEach(p->IO.println("ID: "+p.getId()+", NAME: "+p.getName()));
     }
 }
