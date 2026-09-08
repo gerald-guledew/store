@@ -81,4 +81,13 @@ public class UserService {
         var user = userRepository.findUserAndTagByEmail(email).orElseThrow();
         System.out.println(user.getId());
     }
+
+    @Transactional
+    public void fetchAllUsersWithAddresses() {
+        var user = userRepository.findAllWithAddresses();
+        user.forEach(u -> {
+            System.out.println(u);
+            u.getAddresses().forEach(IO::println);
+        });
+    }
 }

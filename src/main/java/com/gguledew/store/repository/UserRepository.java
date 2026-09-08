@@ -2,6 +2,7 @@ package com.gguledew.store.repository;
 
 import com.gguledew.store.domain.User;
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -12,4 +13,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
     public List<User> findUserByProductsId(Long id);
     @EntityGraph(attributePaths = "tags")
     public Optional<User> findUserAndTagByEmail(String email);
+
+    @EntityGraph(attributePaths = "addresses")
+    @Query("select u from users u")
+    public List<User> findAllWithAddresses();
 }
