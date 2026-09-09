@@ -15,6 +15,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     public Optional<User> findUserAndTagByEmail(String email);
 
     @EntityGraph(attributePaths = "addresses")
-    @Query("select u from users u")
+    @Query("select u from User u")
     public List<User> findAllWithAddresses();
 }

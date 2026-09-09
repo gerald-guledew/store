@@ -6,6 +6,7 @@ import com.gguledew.store.dtos.ProductSummary;
 import com.gguledew.store.dtos.ProductSummaryDTO;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -24,4 +25,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findByCategory(Category category);
     @Query("select p.id as id from Product p where p.category = :category")
     List<ProductSummary> findProductSummaryByCategory(@Param("category") Category category);
+    @Procedure("findProductByPrice")
+    List<Product> findProductByPrice(BigDecimal min, BigDecimal max);
 }

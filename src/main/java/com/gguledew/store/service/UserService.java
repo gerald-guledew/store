@@ -8,6 +8,7 @@ import com.gguledew.store.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -89,5 +90,11 @@ public class UserService {
             System.out.println(u);
             u.getAddresses().forEach(IO::println);
         });
+    }
+
+    @Transactional
+    public void fetchProductsByPrice() {
+        var products = productRepository.findProductByPrice(BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+        products.forEach(IO::println);
     }
 }
