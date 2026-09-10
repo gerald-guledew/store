@@ -1,9 +1,11 @@
 package com.gguledew.store.service;
 
 import com.gguledew.store.domain.Address;
+import com.gguledew.store.domain.Profile;
 import com.gguledew.store.domain.User;
 import com.gguledew.store.repository.AddressRepository;
 import com.gguledew.store.repository.ProductRepository;
+import com.gguledew.store.repository.ProfileRepository;
 import com.gguledew.store.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -18,12 +20,15 @@ public class UserService {
     private final NotificationService notificationService;
     private final AddressRepository addressRepository;
     private final ProductRepository productRepository;
+    private final ProfileRepository profileRepository;
 
-    public UserService(UserRepository userRepository, NotificationService notificationService, AddressRepository addressRepository, ProductRepository productRepository) {
+    public UserService(UserRepository userRepository, NotificationService notificationService, AddressRepository addressRepository, ProductRepository productRepository,
+                       ProfileRepository profileRepository) {
         this.userRepository = userRepository;
         this.notificationService = notificationService;
         this.addressRepository = addressRepository;
         this.productRepository = productRepository;
+        this.profileRepository = profileRepository;
     }
 
     public void registerUser (User user) {
@@ -96,5 +101,31 @@ public class UserService {
     public void fetchProductsByPrice() {
         var products = productRepository.findProductByPrice(BigDecimal.valueOf(2), BigDecimal.valueOf(3));
         products.forEach(IO::println);
+    }
+
+    @Transactional
+    public void populateUserAndProfile() {
+        var user = User.builder().name("name10").email("email10").password("password10").build();
+        userRepository.save(user);
+        var profile = Profile.builder().bio("bio10").phoneNumber("PN10").dateOfBirth(java.sql.Date.valueOf("1903-02-16")).loyaltyPoints(1L).user(user).build();
+        profileRepository.save(profile);
+//        user = User.builder().name("name8").email("email8").password("password8").build();
+//        userRepository.save(user);
+//        profile = Profile.builder().bio("bio8").phoneNumber("PN8").dateOfBirth(java.sql.Date.valueOf("1901-02-16")).loyaltyPoints(10L).user(user).build();
+//        profileRepository.save(profile);
+//        user = User.builder().name("name9").email("email9").password("password9").build();
+//        userRepository.save(user);
+//        profile = Profile.builder().bio("bio9").phoneNumber("PN9").dateOfBirth(java.sql.Date.valueOf("1902-02-16")).loyaltyPoints(20L).user(user).build();
+//        profileRepository.save(profile);
+    }
+
+    public void fetchUserProfilesByLoyaltyPoints() {
+        var userProfiles = profileRepository.findProfilesByLoyaltyPointsGreaterThanOrderByUserEmailDesc(2L);
+        userProfiles.forEach(p -> System.out.println("PROFILE ID: "+p.getId()+", USER EMAIL: "+p.getUser().getEmail()));
+    }
+
+    public void fetchUserSummaryByLoyaltyPoints() {
+        var userSummary = profileRepository.findByLoyaltyPoints(2L);
+        userSummary.forEach(u -> IO.println("P_ID: "+u.getId()+", UEMAIL: "+u.getEmail()));
     }
 }
