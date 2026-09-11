@@ -1,6 +1,7 @@
 package com.gguledew.store.service;
 
 import com.gguledew.store.domain.Address;
+import com.gguledew.store.domain.Product;
 import com.gguledew.store.domain.Profile;
 import com.gguledew.store.domain.User;
 import com.gguledew.store.repository.AddressRepository;
@@ -8,11 +9,16 @@ import com.gguledew.store.repository.ProductRepository;
 import com.gguledew.store.repository.ProfileRepository;
 import com.gguledew.store.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.antlr.v4.runtime.tree.xpath.XPath.findAll;
 
 @Service
 public class UserService {
@@ -127,5 +133,19 @@ public class UserService {
     public void fetchUserSummaryByLoyaltyPoints() {
         var userSummary = profileRepository.findByLoyaltyPoints(2L);
         userSummary.forEach(u -> IO.println("P_ID: "+u.getId()+", UEMAIL: "+u.getEmail()));
+    }
+
+    public void fetchUserSummaryViaUserByLoyalPoints() {
+        var userSummary = userRepository.findUsersByProfileLoyaltyPoints(2L);
+        userSummary.forEach(u -> IO.println("U-P_ID: "+u.getId()+", U-UEMAIL: "+u.getEmail()));
+    }
+
+    public void fetchAllProductsByName() {
+        var product = new Product();
+        product.setName("productname");
+        var exampleMatcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        var example = Example.of(product, exampleMatcher);
+        List<Product> prods = productRepository.findAll(example);
+        prods.forEach(IO::println);
     }
 }
