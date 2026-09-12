@@ -15,8 +15,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jdk.internal.org.jline.utils.Colors.s;
-
 @AllArgsConstructor
 @Repository
 public class ProductCriteriaRepositoryImpl implements ProductCriteriaRepository {
@@ -31,10 +29,21 @@ public class ProductCriteriaRepositoryImpl implements ProductCriteriaRepository 
         Root<Product> root = cq.from(Product.class);
 
         List<Predicate> predicates = new ArrayList<>();
+
         if (name != null) {
             predicates.add(cb.like(root.get(name),"%" + name +"%"));
         }
 
-        return List.of();
+        if (minPrice != null) {
+            predicates.add(cb.greaterThanOrEqualTo(root.get("price"), minPrice));
+        }
+
+        if (maxPrice != null) {
+            predicates.add(cb.lessThanOrEqualTo(root.get("price"), maxPrice));
+        }
+
+        cq.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
+
+        return entityManager.createQuery(cq).getResultList();
     }
 }

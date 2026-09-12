@@ -148,4 +148,9 @@ public class UserService {
         List<Product> prods = productRepository.findAll(example);
         prods.forEach(IO::println);
     }
+
+    public void fetchProductsByCriteria() {
+        var products = productRepository.findProductsByCriteria(null, BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+        products.forEach(IO::println);
+    }
 }
