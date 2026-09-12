@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long>, ProductCriteriaRepository {
     List<Product> findByName(String name);
     List<Product> findTop5ByNameOrderByPriceDesc(String name);
     List<Product> findByPriceBetweenOrderByNameAsc(BigDecimal minPrice, BigDecimal maxPrice);
@@ -28,4 +28,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<ProductSummary> findProductSummaryByCategory(@Param("category") Category category);
     @Procedure("findProductByPrice")
     List<Product> findProductByPrice(BigDecimal min, BigDecimal max);
+
 }
