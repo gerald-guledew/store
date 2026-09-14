@@ -10,8 +10,7 @@ import com.gguledew.store.repository.ProfileRepository;
 import com.gguledew.store.repository.UserRepository;
 import com.gguledew.store.repository.specifications.ProductSpecification;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -156,7 +155,7 @@ public class UserService {
         products.forEach(IO::println);
     }
 
-    public void fetchProductsBySpecification (String name, BigDecimal minPrice, BigDecimal maxPrice) {
+    public void  fetchProductsBySpecification (String name, BigDecimal minPrice, BigDecimal maxPrice) {
         Specification<Product> spec = Specification.unrestricted();
 
         if (name != null) {
@@ -173,5 +172,22 @@ public class UserService {
 
         var products = productRepository.findAll(spec);
         products.forEach(IO::println);
+    }
+
+    public void fetchSortedProducts() {
+        var sort = Sort.by("name").ascending().and( Sort.by("price").descending());
+        var products = productRepository.findAll(sort);
+        products.forEach(IO::println);
+    }
+
+    public void fetchPaginatedProducts (int pageNum, int size) {
+        PageRequest pageRequest = PageRequest.of(pageNum, size, Sort.by("id"));
+        Page<Product> page = productRepository.findAll(pageRequest);
+        var products = page.getContent();
+        products.forEach(IO::println);
+        var totalPages = page.getTotalPages();
+        var totalElements = page.getTotalElements(); //Retrieve total products in the database
+        System.out.println("Total pages: "+totalPages);
+        System.out.println("Total elements: "+totalElements);
     }
 }
