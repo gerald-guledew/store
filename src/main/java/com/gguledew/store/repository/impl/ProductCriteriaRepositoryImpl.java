@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-@Repository
 public class ProductCriteriaRepositoryImpl implements ProductCriteriaRepository {
 
     @PersistenceContext
@@ -31,7 +30,7 @@ public class ProductCriteriaRepositoryImpl implements ProductCriteriaRepository 
         List<Predicate> predicates = new ArrayList<>();
 
         if (name != null) {
-            predicates.add(cb.like(root.get(name),"%" + name +"%"));
+            predicates.add(cb.like(root.get("name"),"%" + name +"%"));
         }
 
         if (minPrice != null) {
@@ -42,7 +41,7 @@ public class ProductCriteriaRepositoryImpl implements ProductCriteriaRepository 
             predicates.add(cb.lessThanOrEqualTo(root.get("price"), maxPrice));
         }
 
-        cq.select(root).where(predicates.toArray(new Predicate[predicates.size()]));
+        cq.select(root).where(predicates.toArray(new Predicate[0]));
 
         return entityManager.createQuery(cq).getResultList();
     }

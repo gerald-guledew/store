@@ -8,9 +8,11 @@ import com.gguledew.store.repository.AddressRepository;
 import com.gguledew.store.repository.ProductRepository;
 import com.gguledew.store.repository.ProfileRepository;
 import com.gguledew.store.repository.UserRepository;
+import com.gguledew.store.repository.specifications.ProductSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -150,7 +152,26 @@ public class UserService {
     }
 
     public void fetchProductsByCriteria() {
-        var products = productRepository.findProductsByCriteria(null, BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+        var products = productRepository.findProductsByCriteria("pname1", BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+        products.forEach(IO::println);
+    }
+
+    public void fetchProductsBySpecification (String name, BigDecimal minPrice, BigDecimal maxPrice) {
+        Specification<Product> spec = Specification.unrestricted();
+
+        if (name != null) {
+            spec = spec.and(ProductSpecification.hasName(name));
+        }
+
+        if (minPrice != null) {
+            spec = spec.and(ProductSpecification.hasPriceGreaterThanOrEqualTo(minPrice));
+        }
+
+        if (maxPrice != null) {
+            spec = spec.and(ProductSpecification.hasPriceLessThanOrEqualTo(maxPrice));
+        }
+
+        var products = productRepository.findAll(spec);
         products.forEach(IO::println);
     }
 }

@@ -22,9 +22,14 @@ public class StoreApplication {
     public static void main(String[] args) throws ParseException {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
         //===
-        //Fetching Products based on set dynamic criteria
+        //Fetching Products based on a given Specification
         var userService = context.getBean(UserService.class);
-        userService.fetchProductsByCriteria();
+        userService.fetchProductsBySpecification("pname1", BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+
+        //===
+        //Fetching Products based on set dynamic criteria
+//        var userService = context.getBean(UserService.class);
+//        userService.fetchProductsByCriteria();
 
         //===
         //Fetching products by name
