@@ -24,13 +24,13 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column (name = "description", columnDefinition = "TEXT", nullable = false)
+    @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
     @Column(name = "price")
     private BigDecimal price;
 
-    @ManyToOne (cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "category_id")
     @ToString.Exclude
     private Category category;

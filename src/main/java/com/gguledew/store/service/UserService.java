@@ -16,10 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static org.antlr.v4.runtime.tree.xpath.XPath.findAll;
 
 @Service
 public class UserService {
@@ -151,11 +147,11 @@ public class UserService {
     }
 
     public void fetchProductsByCriteria() {
-        var products = productRepository.findProductsByCriteria("pname1", BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+        var products = productRepository.findProductsByCriteria(null, BigDecimal.valueOf(2), BigDecimal.valueOf(3), (byte) 3);
         products.forEach(IO::println);
     }
 
-    public void  fetchProductsBySpecification (String name, BigDecimal minPrice, BigDecimal maxPrice) {
+    public void  fetchProductsBySpecification (String name, BigDecimal minPrice, BigDecimal maxPrice, Byte categoryId) {
         Specification<Product> spec = Specification.unrestricted();
 
         if (name != null) {
@@ -168,6 +164,10 @@ public class UserService {
 
         if (maxPrice != null) {
             spec = spec.and(ProductSpecification.hasPriceLessThanOrEqualTo(maxPrice));
+        }
+
+        if (categoryId != null) {
+            spec = spec.and(ProductSpecification.hasCategoryEqualTo(categoryId));
         }
 
         var products = productRepository.findAll(spec);

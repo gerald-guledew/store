@@ -23,8 +23,8 @@ public class StoreApplication {
         ConfigurableApplicationContext context = SpringApplication.run(StoreApplication.class, args);
         //===
         //Fetching Paginated Products
-        var userService = context.getBean(UserService.class);
-        userService.fetchPaginatedProducts(4,3);
+//        var userService = context.getBean(UserService.class);
+//        userService.fetchPaginatedProducts(4,3);
 
         //===
         //Fetching Sorted Products
@@ -33,8 +33,8 @@ public class StoreApplication {
 
         //===
         //Fetching Products based on a given Specification
-//        var userService = context.getBean(UserService.class);
-//        userService.fetchProductsBySpecification("pname1", BigDecimal.valueOf(2), BigDecimal.valueOf(3));
+        var userService = context.getBean(UserService.class);
+        userService.fetchProductsBySpecification(null, BigDecimal.valueOf(2), BigDecimal.valueOf(3), (byte) 2);
 
         //===
         //Fetching Products based on set dynamic criteria
