@@ -1,15 +1,14 @@
-package com.gguledew.store.repository;
+package com.gguledew.store.repositories;
 
-import com.gguledew.store.domain.Category;
-import com.gguledew.store.domain.Product;
+import com.gguledew.store.entities.Category;
+import com.gguledew.store.entities.Product;
 import com.gguledew.store.dtos.ProductSummary;
-import com.gguledew.store.dtos.ProductSummaryDTO;
+import com.gguledew.store.repository.ProductCriteriaRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;

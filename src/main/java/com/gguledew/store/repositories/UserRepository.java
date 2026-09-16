@@ -1,6 +1,6 @@
-package com.gguledew.store.repository;
+package com.gguledew.store.repositories;
 
-import com.gguledew.store.domain.User;
+import com.gguledew.store.entities.User;
 import com.gguledew.store.dtos.UserSummary;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;

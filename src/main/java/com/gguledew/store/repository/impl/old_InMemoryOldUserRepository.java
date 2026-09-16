@@ -1,6 +1,6 @@
 //package com.gguledew.store.repository.impl;
 //
-//import com.gguledew.store.domain.User;
+//import com.gguledew.store.entities.User;
 //import com.gguledew.store.repository.old_UserRepository;
 //import org.springframework.stereotype.Repository;
 //

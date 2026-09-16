@@ -1,5 +1,6 @@
-package com.gguledew.store.domain;
+package com.gguledew.store.entities;
 
+import com.gguledew.store.domain.Tag;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,6 +1,6 @@
-package com.gguledew.store.repository;
+package com.gguledew.store.repositories;
 
-import com.gguledew.store.domain.Category;
+import com.gguledew.store.entities.Category;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CategoryRepository extends CrudRepository<Category, Byte> {

@@ -1,6 +1,6 @@
 //package com.gguledew.store.repository;
 //
-//import com.gguledew.store.domain.User;
+//import com.gguledew.store.entities.User;
 //
 //public interface old_UserRepository {
 //    void save (User user);

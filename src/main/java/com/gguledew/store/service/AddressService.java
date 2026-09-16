@@ -1,7 +1,6 @@
 package com.gguledew.store.service;
 
-import com.gguledew.store.domain.Address;
-import com.gguledew.store.repository.AddressRepository;
+import com.gguledew.store.repositories.AddressRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

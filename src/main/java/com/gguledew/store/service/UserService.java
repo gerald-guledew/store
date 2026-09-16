@@ -1,13 +1,13 @@
 package com.gguledew.store.service;
 
-import com.gguledew.store.domain.Address;
-import com.gguledew.store.domain.Product;
-import com.gguledew.store.domain.Profile;
-import com.gguledew.store.domain.User;
-import com.gguledew.store.repository.AddressRepository;
-import com.gguledew.store.repository.ProductRepository;
-import com.gguledew.store.repository.ProfileRepository;
-import com.gguledew.store.repository.UserRepository;
+import com.gguledew.store.entities.Address;
+import com.gguledew.store.entities.Product;
+import com.gguledew.store.entities.Profile;
+import com.gguledew.store.entities.User;
+import com.gguledew.store.repositories.AddressRepository;
+import com.gguledew.store.repositories.ProductRepository;
+import com.gguledew.store.repositories.ProfileRepository;
+import com.gguledew.store.repositories.UserRepository;
 import com.gguledew.store.repository.specifications.ProductSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.*;

@@ -1,8 +1,8 @@
 package com.gguledew.store.service;
 
-import com.gguledew.store.domain.User;
-import com.gguledew.store.repository.ProfileRepository;
-import com.gguledew.store.repository.UserRepository;
+import com.gguledew.store.entities.User;
+import com.gguledew.store.repositories.ProfileRepository;
+import com.gguledew.store.repositories.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;

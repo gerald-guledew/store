@@ -1,11 +1,10 @@
 package com.gguledew.store.service;
 
-import com.gguledew.store.domain.Category;
-import com.gguledew.store.domain.Product;
-import com.gguledew.store.repository.CategoryRepository;
-import com.gguledew.store.repository.ProductRepository;
-import com.gguledew.store.repository.UserRepository;
-import jakarta.persistence.NamedStoredProcedureQueries;
+import com.gguledew.store.entities.Category;
+import com.gguledew.store.entities.Product;
+import com.gguledew.store.repositories.CategoryRepository;
+import com.gguledew.store.repositories.ProductRepository;
+import com.gguledew.store.repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

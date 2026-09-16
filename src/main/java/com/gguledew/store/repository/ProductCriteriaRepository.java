@@ -1,6 +1,6 @@
 package com.gguledew.store.repository;
 
-import com.gguledew.store.domain.Product;
+import com.gguledew.store.entities.Product;
 
 import java.math.BigDecimal;
 import java.util.List;

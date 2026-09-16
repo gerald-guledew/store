@@ -1,6 +1,6 @@
 package com.gguledew.store.repository.impl;
 
-import com.gguledew.store.domain.Product;
+import com.gguledew.store.entities.Product;
 import com.gguledew.store.repository.ProductCriteriaRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

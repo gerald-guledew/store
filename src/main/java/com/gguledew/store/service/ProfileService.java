@@ -1,6 +1,6 @@
 package com.gguledew.store.service;
 
-import com.gguledew.store.repository.ProfileRepository;
+import com.gguledew.store.repositories.ProfileRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

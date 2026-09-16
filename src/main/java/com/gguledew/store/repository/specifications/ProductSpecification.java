@@ -1,6 +1,6 @@
 package com.gguledew.store.repository.specifications;
 
-import com.gguledew.store.domain.Product;
+import com.gguledew.store.entities.Product;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;

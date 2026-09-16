@@ -1,10 +1,9 @@
-package com.gguledew.store.domain;
+package com.gguledew.store.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
@@ -27,6 +26,9 @@ public class Category {
     @Builder.Default
     private Set<Product> products = new HashSet<>();
 
+    public Category (String name) {
+        this.name = name;
+    }
 
     public Category(byte id) {
         this.id = id;
