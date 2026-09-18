@@ -2,6 +2,7 @@ package com.gguledew.store.controllers;
 
 import com.gguledew.store.dtos.UserDto;
 import com.gguledew.store.entities.User;
+import com.gguledew.store.mappers.UserMapper;
 import com.gguledew.store.repositories.UserRepository;
 import com.gguledew.store.service.UserService;
 import lombok.AllArgsConstructor;
@@ -18,12 +19,13 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @GetMapping
     public List<UserDto> findAll() {
         return userRepository.findAll()
                 .stream()
-                .map(user -> new UserDto(user.getId(), user.getName(), user.getEmail()))
+                .map(userMapper::toDto)
                 .toList();
     }
 
@@ -34,7 +36,6 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-        var userDto = new UserDto(user.getId(), user.getName(), user.getEmail());
-        return ResponseEntity.ok(userDto);
+        return ResponseEntity.ok(userMapper.toDto(user));
     }
 }
