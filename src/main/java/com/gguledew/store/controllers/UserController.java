@@ -21,10 +21,10 @@ public class UserController {
     private UserMapper userMapper;
 
     @GetMapping
-    public List<UserDto> getAllUsers(@RequestParam String sort) {
-        if(!Set.of("name","email").contains(sort))
-            sort = "name";
-        return userRepository.findAll(Sort.by(sort).descending())
+    public List<UserDto> getAllUsers(@RequestParam(required = false, defaultValue = "", name = "sort") String sortBy) {
+        if(!Set.of("name","email").contains(sortBy))
+            sortBy = "name";
+        return userRepository.findAll(Sort.by(sortBy).descending())
                 .stream()
                 .map(userMapper::toDto)
                 .toList();
