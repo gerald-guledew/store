@@ -6,13 +6,12 @@ import com.gguledew.store.mappers.UserMapper;
 import com.gguledew.store.repositories.UserRepository;
 import com.gguledew.store.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -22,8 +21,10 @@ public class UserController {
     private UserMapper userMapper;
 
     @GetMapping
-    public List<UserDto> findAll() {
-        return userRepository.findAll()
+    public List<UserDto> getAllUsers(@RequestParam String sort) {
+        if(!Set.of("name","email").contains(sort))
+            sort = "name";
+        return userRepository.findAll(Sort.by(sort).descending())
                 .stream()
                 .map(userMapper::toDto)
                 .toList();
