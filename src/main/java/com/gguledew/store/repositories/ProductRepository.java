@@ -1,13 +1,11 @@
 package com.gguledew.store.repositories;
 
+import com.gguledew.store.dtos.ProductDto;
 import com.gguledew.store.entities.Category;
 import com.gguledew.store.entities.Product;
 import com.gguledew.store.dtos.ProductSummary;
 import com.gguledew.store.repository.ProductCriteriaRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
@@ -28,5 +26,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Product
     List<ProductSummary> findProductSummaryByCategory(@Param("category") Category category);
     @Procedure("findProductByPrice")
     List<Product> findProductByPrice(BigDecimal min, BigDecimal max);
+    List<Product> findByCategoryId(Byte categoryId);
+    @EntityGraph(attributePaths = "category")
+    @Query("SELECT p FROM Product p")
+    List<Product> findAllWithCategory();
 
 }
