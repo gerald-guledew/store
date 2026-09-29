@@ -5,6 +5,7 @@ import com.gguledew.store.entities.Product;
 import com.gguledew.store.mappers.ProductMapper;
 import com.gguledew.store.repositories.CategoryRepository;
 import com.gguledew.store.repositories.ProductRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,9 +44,12 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductDto> createProduct(
-            @RequestBody ProductDto request,
+            @Valid @RequestBody ProductDto request,
             UriComponentsBuilder uriBuilder) {
         var product = productMapper.toEntity(request);
+        if (!categoryRepository.existsById(request.getCategoryId())) {
+            return ResponseEntity.badRequest().build();
+        }
         var category = categoryRepository.getReferenceById(request.getCategoryId());
         product.setCategory(category);
         productRepository.save(product);
@@ -71,5 +75,13 @@ public class ProductController {
         return ResponseEntity.ok(productMapper.toDto(product));
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ProductDto> deleteProduct(@PathVariable Long id) {
+        var product = productRepository.findById(id).orElse(null);
+        if (product == null) {
+            return ResponseEntity.notFound().build();
+        }
+        productRepository.delete(product);
+        return ResponseEntity.noContent().build();
+    }
 }
