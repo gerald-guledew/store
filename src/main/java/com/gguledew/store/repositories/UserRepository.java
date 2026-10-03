@@ -2,6 +2,8 @@ package com.gguledew.store.repositories;
 
 import com.gguledew.store.entities.User;
 import com.gguledew.store.dtos.UserSummary;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,4 +25,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u.profile.id as id, u.email as email from User u where u.profile.loyaltyPoints > :point")
     @EntityGraph (attributePaths="profile")
     List<UserSummary> findUsersByProfileLoyaltyPoints(@Param("point") Long point);
+
+    boolean existsByEmail(@NotBlank(message = "Email is required") @Email(message = "Email must be valid") String email);
 }

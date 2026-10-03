@@ -4,20 +4,16 @@ import com.gguledew.store.dtos.ChangePasswordRequest;
 import com.gguledew.store.dtos.RegisterUserRequest;
 import com.gguledew.store.dtos.UpdateUserRequest;
 import com.gguledew.store.dtos.UserDto;
-import com.gguledew.store.entities.User;
 import com.gguledew.store.mappers.UserMapper;
 import com.gguledew.store.repositories.UserRepository;
-import com.gguledew.store.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -50,9 +46,14 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> createUser(
+    public ResponseEntity<?> registerUser(
             @Valid @RequestBody RegisterUserRequest request,
             UriComponentsBuilder uriBuilder) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            return ResponseEntity.badRequest().body(
+                    Map.of("email", "Email already exist")
+            );
+        }
         var user = userMapper.toEntity(request);
         userRepository.save(user);
         var userDto = userMapper.toDto(user);
